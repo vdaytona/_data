@@ -1,0 +1,32 @@
+//------------------------------------------------------
+// 01.01.2017 | "Oppdaget at dokumentasjon er lurt" | 1
+//------------------------------------------------------
+/*Backtestet EURUSD fra 2014.01.01 til 2016.11.27 med isTrending og probablyTZ. Beste resultat med tanke på trade-muligheter:
+
+  01012017backtest.txt
+  winrate            55.9% (+- 0.5%)
+  pass               68	
+  profit             18.81
+  trades	            1311
+  profit factor      1.05
+  expected payoff	   0.01
+  drawdown($)        29.85
+  drawdown(%)        0.30%
+  h1_value=140 	trade_dur=11
+  
+  Uviktige variabelverdier:
+  h2_value=5 	h_williamsS=35 	h_williamsL=15 	williams_thresholdS=-6 	williams_thresholdL=-86 	ma_period1=7
+  ma_period2=14 	ma_shift=14 	stoch_k=3 	stoch_delay=3 	stoch_d=1 	order_volume=0.01 	stoch_testval=0.01
+  broker_payout=0.75 	m_min=0 	ma_threshold=-0.5 	open_threshold=1 	stake=100 	testmode=0*/
+
+/*Hvis timeframe i i(Close/High/Low/Open) settes til 0 vil datakvaliteten gå ned som følger av lav 60-sec qual(25%).
+  Kanskje også multipliseres h_value med timeframe siden den er ment for 1-min.
+  Eks h_value = 100 testet i 5-min er faktisk h_value lik 100*5=500*/
+
+/*Jobbet med testing av average true range ATR mot Bid for edge i divergence. Brukte moddet corr_stats.mq4                                                                
+  Kan lagre data til fil i flere kolonner adskilt av komma(",") skrevet med ekvivalent til matlabs fprintf(fID,'%d\n', var)
+  Unngår stor stor O = O(N^2) ved å ikke gjennomføre regresjon (least squares eller K-means(?)), tester kun for differanse og sparer R = O(N^2-n) optimaliseringstid*/
+  
+/*Muligheter for at en ATR-graf med shift har høy R^2 i sammenlignet med normalisert pris. Kanskje en edge i deltaverdier her.*/
+                              
+/*Se etter github-widget for MT4, - eller 5, hvis det er mulig å porte .mq4 -> .mq5 eller kjøre .mq4 direkte i MT5. Evt. laste opp dokumenter til github direkte fra sourcelibrary. Trenger backup.*/

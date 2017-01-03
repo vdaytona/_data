@@ -1,0 +1,17 @@
+//------------------------------------------------------
+// 02.01.2017 | "Ny TZ-ide og GitHub-integrasjon" | 2
+//------------------------------------------------------
+/*Mulig strategi. Vent til confirmed TZ. Hvis hTZ, vent til pTZ(allerede lavere enn hTZ) erstattes med ny pTZ. Åpne put order(BO). 
+  Ser lovende ut fra grafene. Vurder automatisering.
+  
+  Logikk bak er statistisk bias for hTZ etter lTZ vice versa. Vet også at sanne TZ har relativt lav sannsynlighet for å oppstå. 
+  Kan være lurt å finne ut hvor sannsynlig det er at en hpTZ oppstår etter konsekutive lpTZ. Finn også tall på hvor mange konsekutive som er normalen el.*/
+
+/*Kan være lurt å partisjonere hovedprogrammet, altså importere funksjoner foran skrive dem i hovedfil (om mulig i mql4~)*/
+
+/*Mulig strategi. Bruk realtime værdata og strømpriser til å valuere crude brent eller heating oil. Kommer sannsynligvis til å 
+  fungere dårlig inntil oljen går inn ranging-marked (mulig 85usd 4. kvartal 2017).*/
+  
+/*Startet GitHub-integrasjon. Mangler fortsatt mesteparten av kildekoden.*/
+
+**Merk. Velger å kategorisere nye filer som YYYYMMDD fremover for å unngå potensielt filrot.**
