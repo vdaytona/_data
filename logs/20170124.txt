@@ -1,0 +1,3 @@
+##24.01.2017, Fungerende winrate-justering, 13
+Viktig backtesting-data i dagens research-filer.  
+Fant ut at utregningen av riemann-derivasjonsgrafen regnet med tall først i winrate-historikk-arrayet, noe som førte til et shift på wrate_lookback i winrate-vekstfart ax_<type>. Har enda ikke funnet ut en smart måte å implementere trades i motsatt retning under perioder med negativ vekstfart. Mer metrikk.
