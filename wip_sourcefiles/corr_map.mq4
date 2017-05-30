@@ -8,7 +8,7 @@ input int save_mod = 60,
 //http://www.myfxbook.com/forex-market/correlation
 input string other_symbol = "EURAUD"; 
 
-string SUBFOLDER = "Research/corr_map";
+string SUBFOLDER = "Research/";
 int filehandle;
 float map_val, last_mapped = iClose(Symbol(), 0, 1); //attempt at eliminating zero division at first loop
 
