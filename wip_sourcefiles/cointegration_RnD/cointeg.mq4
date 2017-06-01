@@ -3,8 +3,8 @@
 #property version   "1.00"
 
 input int save_mod  = 1, //set to 1 for realtime
-          period = 50,
-          skew   = 25,
+          period    = 50,
+          skew      = 25,
           ordertype = 0;
           
 input double tp               = 0.005,
@@ -26,8 +26,8 @@ input string other_symbol = "EURCAD"; //implies EURUSD as primary symbol
 
 string SUBFOLDER = "Research/mean_reversion_rnd";
 int filehandle;
-float delta_val,
-      this_close, other_close,
+double delta_val,
+      this_close, other_close, open_rate,
       first_close = iClose(Symbol(), 0, 1); //attempt at eliminating zero division at first loop
 
 //+------------------------------------------------------------------+
@@ -70,6 +70,7 @@ void OnTick() {
                         if(this_ratio - other_ratio >= ratio_delta && iHighest(Symbol(), 0, MODE_HIGH, period) >= skew 
                                                                    && iLowest(Symbol(), 0, MODE_LOW, period) >= skew) {
                             open_order(ordertype);
+                            open_rate = Bid;
                             Print("other ratio: ", other_ratio);
                             Print("this ratio: ", this_ratio);
                         }
@@ -78,6 +79,7 @@ void OnTick() {
                         if(this_ratio - other_ratio <= ratio_delta && iHighest(Symbol(), 0, MODE_HIGH, period) >= skew 
                                                                    && iLowest(Symbol(), 0, MODE_LOW, period) >= skew) {
                             open_order(ordertype);
+                            open_rate = Ask;
                             Print("other ratio: ", other_ratio);
                             Print("this ratio: ", this_ratio);
                         }
@@ -101,7 +103,7 @@ void OnTick() {
                OrderMagicNumber() == Magic.Number*/ &&
                OrderSymbol()      == Symbol()) {
 
-                if(MathAbs(this_ratio - other_ratio) < 0.05) {
+                if(MathAbs(this_ratio - other_ratio) < 0.05 || Bid - (open_rate - tp + 2*tp*double(ordertype)) <= 0.0002) {
                     if(!OrderClose(OrderTicket(), OrderLots(), OrderClosePrice(), 3))
                         Print("Order close error. -", GetLastError());
                 }
@@ -114,10 +116,10 @@ void open_order (int mode)
 {       
     switch(mode) { 
         case 0:
-            int ticket = OrderSend(Symbol(), OP_SELL, order_volume_(), Bid, 3, Bid*1.001, 0, 0, 0);
+            int ticket = OrderSend(Symbol(), OP_SELL, order_volume_(), Bid, 3, Bid+sl, 0, 0, 0);
             break;
         case 1:
-            ticket = OrderSend(Symbol(), OP_BUY, order_volume_(), Ask, 3, Ask-sl, Ask+tp, 0, 0);
+            ticket = OrderSend(Symbol(), OP_BUY, order_volume_(), Ask, 3, Ask-sl, 0, 0, 0);
             //ticket = OrderSend(Symbol(), OP_BUY, order_volume, Ask, 3, Ask-sl, 0, 0, 0);
             break;
         case 2:
