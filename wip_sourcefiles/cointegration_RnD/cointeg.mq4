@@ -126,7 +126,7 @@ void OnTick() {
         if(toggle_storing) {
             if(filehandle != INVALID_HANDLE) {
                 FileSeek(filehandle, 0, SEEK_END); 
-                FileWrite(filehandle, this_ratio, other_ratio);
+                FileWrite(filehandle, iClose(Symbol(), 0, 0));
                 FileFlush(filehandle);
             }
         }
