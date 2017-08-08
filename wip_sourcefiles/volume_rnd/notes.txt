@@ -1,0 +1,30 @@
+Impossible to know trade duration beforehand. 
+Will introduce future data into RNN LSTM if previously executed trades with 
+differing trade durations are used as training data.
+
+-Using Sharpe^-1 as loss-function?
+-Train network as working system or 
+ for predicting which signals are profitable enough?
+-Modifying k-fold cross validation to scramble multiple time series?
+
+Assign weights to returns time series for each currency ret.
+This should compensate for varying volatilities.
+Calculate weights based on relative standard deviation with period from another function T.
+
+	w_1(T(t)) = 1 - std(r_1)[T(t)]/(std(r_2)[T(t)] + std(r_3)[T(t)])
+
+The function with 3-d outputs then becomes
+
+	r(t) = [[r_1(0)*w_1(T(0)), r_2(0)*w_2(T(0)), r_3(0)*w_3(T(0))], 
+		[r_1(1)*w_1(T(1)), r_2(1)*w_2(T(1)), r_3(1)*w_3(T(1))], 
+		[r_1(2)*w_1(T(2)), r_2(2)*w_2(T(2)), r_3(2)*w_3(T(2))], 
+		 ..., 
+		[r_1(t)*w_1(T(t)), r_2(t)*w_2(T(t)), r_3(t)*w_3(T(t))]]
+
+---
+Model evaluation metric: Akaike's information criteria
+	AIC = n*ln(S/n)+2p
+Model evaluation metric: Bayesian information criteria
+	BIC = n*ln(S/n)+p(1+ln(n))
+Where S = sum(mse), p = n parameters, n = n time series points.
+BIC penalizes more parameters more.
